@@ -1,0 +1,40 @@
+$bg_color: #E5DED6;
+$accent_color: #E74C3C;
+$base_color: #2C3E71;
+
+body {
+    font-family: 'Vollkorn', serif;
+    font-size: 1.125em;
+    padding: 1em 2em 1em 2em;
+    background-color: $bg_color;
+    color: $base_color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+h2 {
+    display:inline-block;
+    border-bottom: 2px solid $base_color;
+    width: auto;
+}
+
+a {
+    color: $accent_color;
+}
+
+#header {
+    .column-1 {
+        margin-right: 1em;
+    }
+    .column-2 {
+        h3 {
+            margin-top: 0;
+        }
+    }
+}
+
+#selected-work {
+}
