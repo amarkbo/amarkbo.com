@@ -1,18 +1,22 @@
-$bg_color: #E5DED6;
+$bg_color: #F5F2EB;
+//$bg_color: #E5DED6;
 $accent_color: #E74C3C;
 $base_color: #2C3E71;
 
+$header_font: 'museo-sans', sans-serif;
+$body_font: 'ff-tisa-web-pro', serif;
+
 body {
-    font-family: 'Vollkorn', serif;
+    font-family: $body_font;
     font-size: 1.125em;
     padding: 1em 2em 1em 2em;
-    background-color: $bg_color;
     color: $base_color;
+    background-image: url('/images/background.jpg');
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
+    font-family: $header_font;
+    font-weight: 500;
 }
 
 h2 {
@@ -29,6 +33,8 @@ a {
     .column-1 {
         margin-right: 1em;
     }
+
+    // TODO: not on mobile
     .column-2 {
         h3 {
             margin-top: 0;
@@ -37,4 +43,17 @@ a {
 }
 
 #selected-work {
+
+    #work-grid {
+
+        .work-container {
+            // size of the images
+            max-width: 400px;
+
+            // TODO: not on mobile
+            padding: 0 1em 1em 0;
+            text-align: center;
+        }
+
+    }
 }
