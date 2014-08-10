@@ -23,6 +23,11 @@ metalsmith_src.use(metaobject(settings))
         }
     }))
 
+    .use(permalinks({
+        pattern: ':collection/:title',
+        relative: false
+    }))
+
     .use(templates({
         engine: 'swig',
         directory: 'templates',
