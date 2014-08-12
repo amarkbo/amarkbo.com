@@ -1,10 +1,39 @@
+var routes = {
+    '/works/:workSlug': workView,
+    '/': mainView
+}
+
 $(function() {
-    $('.work-link').click(function() {
+    var router = Router(routes);
+    router.init();
+
+    // hack to allow the first back button 
+    $(window).on('hashchange', function() {
+        if (location.hash == '') {
+            mainView();
+        }
     });
 });
 
+/*** VIEWS ***/
+
+function workView(workSlug) {
+    $.get('works/' + workSlug, function(data) {
+        $('#work-content').html(data);
+        work_overlay_on();
+    });
+}
+
+function mainView() {
+    console.log('main');
+    work_overlay_off();
+}
+
+/*** HELPERS ***/
+
 var originalScrollTop = 0;
-function overlay_on() {
+
+function work_overlay_on() {
     originalScrollTop = $(window).scrollTop();
     var width = $('#main-content-container').width();
 
@@ -21,8 +50,7 @@ function overlay_on() {
     $(window).scrollTop(0);
 }
 
-function overlay_off() {
-
+function work_overlay_off() {
     // reset main content
     $('#main-content').css({'position': 'static'});
     $('#main-content').width('auto');
