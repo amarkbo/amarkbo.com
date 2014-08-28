@@ -1,13 +1,13 @@
 var routes = {
-    '/works/:workSlug': workView,
+    '/works/:workSlug/': workView,
     '/': mainView
 }
 
 $(function() {
-    var router = Router(routes);
+    var router = Router(routes).configure({'strict': false});
     router.init();
 
-    // hack to allow the first back button 
+    // hack to allow the first back button
     $(window).on('hashchange', function() {
         if (location.hash == '') {
             mainView();
@@ -18,14 +18,13 @@ $(function() {
 /*** VIEWS ***/
 
 function workView(workSlug) {
-    $.get('works/' + workSlug, function(data) {
-        $('#work-content').html(data);
+    $.get('works/' + workSlug + '/', function(data) {
+        $('#work-overlay').html(data);
         work_overlay_on();
     });
 }
 
 function mainView() {
-    console.log('main');
     work_overlay_off();
 }
 
@@ -42,9 +41,10 @@ function work_overlay_on() {
     $('#main-content').css({'top': -originalScrollTop});
     $('#main-content').width(width-64);
 
-    // make overlay visible
-    $('#overlay-content').css({'display': 'inline'});
-    $('#overlay-content').css({'position': 'absolute'});
+    $('#work-overlay-container').css({'display': 'inline'});
+
+    $('#main-content').addClass('blur');
+    $('#shade').show();
 
     // scroll to top
     $(window).scrollTop(0);
@@ -56,7 +56,10 @@ function work_overlay_off() {
     $('#main-content').width('auto');
 
     // hide overlay
-    $('#overlay-content').css({'display': 'none'});
+    $('#work-overlay-container').css({'display': 'none'});
+
+    $('#main-content').removeClass('blur');
+    $('#shade').hide();
 
     // scroll to where we were!
     $(window).scrollTop(originalScrollTop);

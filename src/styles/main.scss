@@ -8,6 +8,20 @@ $base_color: #00387d;
 $header_font: 'museo-sans', sans-serif;
 $body_font: 'ff-tisa-web-pro', serif;
 
+/*** mixins ***/
+
+/*
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+*/
+
+/*** main ***/
+
 body {
     font-family: $body_font;
     font-size: 1.125em;
@@ -29,6 +43,7 @@ h2 {
 
 a {
     color: $accent_color;
+    outline: 0;
 }
 
 #header {
@@ -48,6 +63,10 @@ a {
 
     #work-grid {
 
+        a:hover, a:active, a:focus {
+            outline: 0;
+        }
+
         .work-container {
             // size of the images
             max-width: 400px;
@@ -60,21 +79,14 @@ a {
     }
 }
 
-#work-overlay-container {
+#shade {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
-}
-
-#work-overlay {
-    width: 80%;
-    right: 0;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    display: none;
-    opacity: 0.5;
+    background-color: rgba(0,0,0,0.5);
 }
 
 #main-content-container {
@@ -83,4 +95,22 @@ a {
 
 #main-content {
     margin: 16px 32px 16px 32px;
+}
+
+#work-overlay-container {
+    position: absolute;
+    width: 80%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+}
+
+#work-overlay {
+    background-color: white;
+    z-index: 20;
+    background-color: $bg_color;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
