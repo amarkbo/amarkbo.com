@@ -45,24 +45,30 @@ function work_overlay_on() {
     $('#main-content').css({'top': -originalScrollTop});
     $('#main-content').width(width-64);
 
-    $('#work-overlay-container').css({'display': 'inline'});
-
+    // show the shade
     $('#shade').show();
+
+    $('#work-overlay-container').css({'opacity': '0.1'});
+    $('#work-overlay-container').css({'display': 'inline'});
 
     // scroll to top
     $(window).scrollTop(0);
+
+    $('#work-overlay-container').animate({'opacity': '1.0'});
 }
 
 function work_overlay_off() {
-    // reset main content
-    $('#main-content').css({'position': 'static'});
-    $('#main-content').width('auto');
+    $('#work-overlay-container').animate({'opacity': '0.0'}, function () {
 
-    // hide overlay
-    $('#work-overlay-container').css({'display': 'none'});
+        // reset main content
+        $('#main-content').css({'position': 'static'});
+        $('#main-content').width('auto');
 
-    $('#shade').hide();
+        // hide overlay and shade
+        $('#work-overlay-container').css({'display': 'none'});
+        $('#shade').hide();
 
-    // scroll to where we were!
-    $(window).scrollTop(originalScrollTop);
+        // scroll to where we were!
+        $(window).scrollTop(originalScrollTop);
+    });
 }
