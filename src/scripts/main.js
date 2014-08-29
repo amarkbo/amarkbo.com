@@ -13,6 +13,10 @@ $(function() {
             mainView();
         }
     });
+
+    $('#shade').click(function() {
+        router.setRoute('/');
+    });
 });
 
 /*** VIEWS ***/
@@ -43,7 +47,6 @@ function work_overlay_on() {
 
     $('#work-overlay-container').css({'display': 'inline'});
 
-    $('#main-content').addClass('blur');
     $('#shade').show();
 
     // scroll to top
@@ -58,7 +61,6 @@ function work_overlay_off() {
     // hide overlay
     $('#work-overlay-container').css({'display': 'none'});
 
-    $('#main-content').removeClass('blur');
     $('#shade').hide();
 
     // scroll to where we were!
