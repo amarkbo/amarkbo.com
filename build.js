@@ -41,7 +41,7 @@ metalsmith_src.use(metaobject(settings))
     .build(function(err){
         if (err) throw err;
 
-        // copy components for now
+        // copy components for now TODO: rsync this
         exec("cp -R bower_components build/vendor", function(error, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);
