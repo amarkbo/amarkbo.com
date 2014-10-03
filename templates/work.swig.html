@@ -1,4 +1,12 @@
-<div class="close-button"><a href="#">Close</a></div>
+<div class="work-nav-buttons">
+    <a href="#">X Close</a>
+    {% if previous.path %}
+        <a href="#/{{previous.path}}">&lt; {{previous.title}}</a>
+    {% endif %}
+    {% if next.path %}
+        <a href="#/{{next.path}}">{{next.title}} &gt;</a>
+    {% endif %}
+</div>
 <h2>{{title}}</h2>
 <div class="contents">
     {{contents|safe}}

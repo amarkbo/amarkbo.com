@@ -5,7 +5,10 @@ $accent_color: #E74C3C;
 $base_color: #00387d;
 
 $header_font: 'museo-sans', sans-serif;
+//$header_font: 'Lato', sans-serif;
+
 $body_font: 'ff-tisa-web-pro', serif;
+//$body_font: 'Gentium Book Basic', serif;
 
 /*** main ***/
 
@@ -19,7 +22,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: $header_font;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 h2 {
@@ -60,16 +63,21 @@ a:hover {
             outline: 0;
         }
 
-        .work-container {
+        .work-link-inside {
             // size of the images
             max-width: 400px;
 
             // TODO: not on mobile
             padding: 0 1em 1em 0;
             text-align: center;
+
+            .work-title {
+                font-family: $body_font;
+            }
         }
 
     }
+
 }
 
 #shade {
@@ -109,6 +117,11 @@ a:hover {
     background-color: white;
     background-color: $bg_color;
     padding: 2em;
+
+    .work-nav-buttons a {
+        margin-right: 1em;
+        font-size: 0.875em;
+    }
 }
 
 /***
