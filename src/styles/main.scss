@@ -13,11 +13,15 @@ $body_font: 'ff-tisa-web-pro', serif;
 /*** main ***/
 
 body {
-    font-family: $body_font;
-    font-size: 1.125em;
+    font-size: 18px;
     color: $base_color;
     background-color: $bg_color;
-    //background-image: url('/images/background.jpg');
+}
+
+body,
+.pure-g [class *= "pure-u"],
+.pure-g-r [class *= "pure-u"] {
+    font-family: $body_font;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -119,8 +123,27 @@ a:hover {
     padding: 2em;
 
     .work-nav-buttons a {
+        font-size: 0.88em;
         margin-right: 1em;
-        font-size: 0.875em;
+    }
+
+    .work-meta {
+        float: right;
+        width: 33%;
+        font-size: 0.88em;
+
+        padding: 0 0 2em 2em;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    }
+
+    .intro {
+        font-size: 1.5em;
+        font-style: italic;
     }
 }
 

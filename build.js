@@ -19,7 +19,8 @@ metalsmith_src.use(metaobject(settings))
     .use(collections({
         works: {
             pattern: 'works/*.html',
-            sortBy: 'date' 
+            sortBy: 'date',
+            reverse: true
         }
     }))
 

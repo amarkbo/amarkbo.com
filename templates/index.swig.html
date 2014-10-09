@@ -23,7 +23,7 @@
 <div id="main-content-container"><div id="main-content">
 
     <h2>amarkbo.com</h2>
-    <div id="header" class="pure-g-r">
+    <div id="header" class="pure-g">
         <div class="pure-u-1 pure-u-md-1-6 spacer-col"></div>
         <div class="pure-u-1 pure-u-md-1-3 column-1">
             This is the site of <strong>Amar Boghani</strong>. I make digital things &amp; experiences.
@@ -37,7 +37,7 @@
     </div>
 
     <h2>Selected work</h2>
-    <div id="selected-work" class="pure-g-r">
+    <div id="selected-work" class="pure-g">
         <div class="pure-u-1 pure-u-md-1-6 spacer-col"></div>
 
         <!-- center column -->
@@ -47,7 +47,7 @@
             <div id="work-grid" class="pure-g">
                 {% for work in works %}
                     <div class="pure-u-1 pure-u-sm-1-2 pure-u-lg-1-3">
-                        <a class="work-link" href="#/{{work.path}}/">
+                        <a class="work-link" href="{{work.path}}">
                             <div class="work-link-inside">
                                 <img class="pure-img" src="{{base_url}}{{work.path}}/thumb.jpg"></img>
                                 <div class="work-title">{{work.title}}</div>

@@ -1,21 +1,48 @@
 var routes = {
     '/works/:workSlug/': workView,
-    '/': mainView
+    '/': homeView
 }
 
 $(function() {
     var router = Router(routes).configure({'strict': false});
     router.init();
 
-    // hack to allow the first back button
+    // hack to allow the first back button to work properly
     $(window).on('hashchange', function() {
         if (location.hash == '') {
-            mainView();
+            homeView();
         }
     });
 
+    // keyboard shortcuts
+    $(document).on('keydown', function(e) {
+        if (e.keyCode == 27) {
+            router.setRoute('/');
+        }
+    });
+
+    // click outside the open window
     $('#shade').click(function() {
         router.setRoute('/');
+    });
+
+    // work links, incercept and route to the anchor link
+    $('.work-link').click(function(e) {
+        e.preventDefault();
+        var url = window.location.href;
+        var separator = '';
+
+        // both of these are valid homeView routes
+        if ( url.slice('-1') == '#' ) {
+            separator = '/';
+        }
+        else if ( !(url.slice('-2') == '#/') ) {
+            separator = separator + '#/';
+        }
+
+        url = url + separator + $(this).attr('href');
+
+        window.location.href = url;
     });
 });
 
@@ -28,7 +55,7 @@ function workView(workSlug) {
     });
 }
 
-function mainView() {
+function homeView() {
     work_overlay_off();
 }
 
