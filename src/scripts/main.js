@@ -3,6 +3,9 @@ var routes = {
     '/': homeView
 }
 
+
+/*** INIT ***/
+
 $(function() {
     var router = Router(routes).configure({'strict': false});
     router.init();
@@ -26,7 +29,7 @@ $(function() {
         router.setRoute('/');
     });
 
-    // work links, incercept and route to the anchor link
+    // work links - incercept and route to the anchor
     $('.work-link').click(function(e) {
         e.preventDefault();
         var url = window.location.href;
@@ -46,11 +49,16 @@ $(function() {
     });
 });
 
+
 /*** VIEWS ***/
 
 function workView(workSlug) {
     $.get('works/' + workSlug + '/', function(data) {
-        $('#work-overlay').html(data);
+        // A bit hacky, yes. Get the content to display from work-container.
+        var html_data = $.parseHTML(data);
+        var work_container_html = $('<div/>').append(html_data).find('.work-container').html()
+        $('#work-overlay').html(work_container_html);
+
         work_overlay_on();
     });
 }
@@ -58,6 +66,7 @@ function workView(workSlug) {
 function homeView() {
     work_overlay_off();
 }
+
 
 /*** HELPERS ***/
 
@@ -67,7 +76,7 @@ function work_overlay_on() {
     originalScrollTop = $(window).scrollTop();
     var width = $('#main-content-container').width();
 
-    // set main content to fixed so that overlay scrolls
+    // set main content to fixed so that overlay scrolls instead
     $('#main-content').css({'position': 'fixed'});
     $('#main-content').css({'top': -originalScrollTop});
     $('#main-content').width(width-64);
@@ -75,6 +84,7 @@ function work_overlay_on() {
     // show the shade
     $('#shade').show();
 
+    // get ready for the fade
     $('#work-overlay-container').css({'opacity': '0.1'});
     $('#work-overlay-container').css({'display': 'inline'});
 
@@ -87,7 +97,7 @@ function work_overlay_on() {
 function work_overlay_off() {
     $('#work-overlay-container').animate({'opacity': '0.0'}, function () {
 
-        // reset main content
+        // set main content back to static
         $('#main-content').css({'position': 'static'});
         $('#main-content').width('auto');
 
@@ -95,7 +105,7 @@ function work_overlay_off() {
         $('#work-overlay-container').css({'display': 'none'});
         $('#shade').hide();
 
-        // scroll to where we were!
+        // scroll to where we were on the main page
         $(window).scrollTop(originalScrollTop);
     });
 }
