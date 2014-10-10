@@ -1,6 +1,13 @@
+{% extends 'root.swig.html' %}
+
+{% block body %}
 <script>
-    window.location.href = '/#/{{path}}';
+    // Get outta here, humans. Only robots disable javascript.
+    window.location.href = '{{base_url}}#/{{path}}';
 </script>
+
+<!-- this class is left out when pulling into the main view -->
+<div class="work-container">
 
 <div class="work-nav-buttons">
     <a href="#">X Close</a>
@@ -11,11 +18,11 @@
         <a href="#/{{next.path}}">{{next.title}} &gt;</a>
     {% endif %}
 </div>
+
 <h2>{{title}}</h2>
-</div>
-<div class="contents">
+<div class="work-content">
     <div class="work-meta">
-        <img class="pure-img" src="works/marriott-six-degrees/thumb.jpg">
+        <img class="pure-img" src="{{base_url}}works/marriott-six-degrees/thumb.jpg">
         <ul>
             <li><strong>My role: </strong>{{role}}</li>
             <li><strong>Team size: </strong>{{team}}</li>
@@ -24,3 +31,7 @@
     </div>
     {{contents|safe}}
 </div>
+
+</div>
+
+{% endblock %}
