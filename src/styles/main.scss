@@ -39,7 +39,7 @@ h2 {
 }
 
 h3 {
-    margin: 1.25em 0 0.5em 0;
+    margin: 1.25em 0 0.25em 0;
 }
 
 a {
@@ -58,7 +58,15 @@ a:hover {
 
 #header {
     .column-2 {
+        padding-left: 1em;
+
+        @media screen and (max-width: $break_tablet) {
+            padding-left: 0;
+        }
+
         h3 {
+            margin-top: 0;
+
             @media screen and (max-width: $break_tablet) {
                 margin-top: 1.25em;
             }
