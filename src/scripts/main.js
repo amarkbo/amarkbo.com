@@ -1,14 +1,15 @@
+(function($) {
+
 var routes = {
     '/works/:workSlug/': workView,
     '/': homeView
 }
 
+var router = Router(routes).configure({'strict': false});
 
 /*** INIT ***/
 
 $(function() {
-    var router = Router(routes).configure({'strict': false});
-    router.init();
 
     // hack to allow the first back button to work properly
     $(window).on('hashchange', function() {
@@ -22,11 +23,6 @@ $(function() {
         if (e.keyCode == 27) {
             router.setRoute('/');
         }
-    });
-
-    // click outside the open window
-    $('#shade').click(function() {
-        router.setRoute('/');
     });
 
     // work links - incercept and route to the anchor
@@ -47,6 +43,8 @@ $(function() {
 
         window.location.href = url;
     });
+
+    router.init();
 });
 
 
@@ -57,7 +55,7 @@ function workView(workSlug) {
         // A bit hacky, yes. Get the content to display from work-container.
         var html_data = $.parseHTML(data);
         var work_container_html = $('<div/>').append(html_data).find('.work-container').html()
-        $('#work-overlay').html(work_container_html);
+        $('#work-overlay-content').html(work_container_html);
 
         work_overlay_on();
     });
@@ -73,6 +71,9 @@ function homeView() {
 var originalScrollTop = 0;
 
 function work_overlay_on() {
+
+    // TODO make sure the height of the overlay is at least as tall as the window
+    
     originalScrollTop = $(window).scrollTop();
     var width = $('#main-content-container').width();
 
@@ -81,31 +82,41 @@ function work_overlay_on() {
     $('#main-content').css({'top': -originalScrollTop});
     $('#main-content').width(width-64);
 
-    // show the shade
-    $('#shade').show();
-
     // get ready for the fade
     $('#work-overlay-container').css({'opacity': '0.1'});
     $('#work-overlay-container').css({'display': 'inline'});
 
-    // scroll to top
+    // scroll to top and fade in
     $(window).scrollTop(0);
-
     $('#work-overlay-container').animate({'opacity': '1.0'});
+
+
+    // click to close, only if the click is outside work-overlay
+    $('#work-overlay-container').on('click', function() {
+        router.setRoute('/');
+    });
+    
+    $('#work-overlay').on('click', function(e) {
+        e.stopPropagation();
+    });
 }
 
 function work_overlay_off() {
-    $('#work-overlay-container').animate({'opacity': '0.0'}, function () {
+    $('#work-overlay-container').animate({'opacity': '0.0'}, function() {
+        // scroll to where we were on the main page
+        $(window).scrollTop(originalScrollTop);
 
         // set main content back to static
         $('#main-content').css({'position': 'static'});
         $('#main-content').width('auto');
 
-        // hide overlay and shade
+        // hide overlay completely
         $('#work-overlay-container').css({'display': 'none'});
-        $('#shade').hide();
-
-        // scroll to where we were on the main page
-        $(window).scrollTop(originalScrollTop);
     });
+
+    // clean up event handlers
+    $('#work-overlay-container').off('click');
+    $('#work-overlay').off('click');
 }
+
+})(jQuery);

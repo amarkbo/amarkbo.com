@@ -91,19 +91,8 @@ a:hover {
 
 }
 
-#shade {
-    z-index: 10;
-    position: fixed;
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
-
 #main-content-container {
-    z-index: 0;
+    height: 100%;
     width: 100%;
 }
 
@@ -111,30 +100,35 @@ a:hover {
     margin: 16px 32px 16px 32px;
 }
 
+// Takes up the whole screen, shade the background
 #work-overlay-container {
     z-index: 20;
     position: absolute;
-    width: 80%;
-    right: 0;
-    left: 0;
-    margin: 2em auto 2em auto;
+    width: 100%;
     display: none;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#work-overlay {
+    width: 80%;
+    margin: 2em auto 2em auto;
+    background-color: $bg_color;
 
     @media screen and (max-width: $break_tablet) {
         width: 90%;
     }
+
     @media screen and (max-width: $break_mobile) {
         width: 95%;
     }
 }
 
+#work-overlay-content {
 
-#work-overlay {
-    background-color: $bg_color;
     padding: 2em;
 
-    @media screen and (max-width: $break_tablet) {
-        padding: 1em;
+    @media screen and (max-width: $break_mobile) {
+        padding: 0.5em;
     }
 
     .work-nav-buttons a {
