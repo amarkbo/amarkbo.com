@@ -71,8 +71,6 @@ function homeView() {
 var originalScrollTop = 0;
 
 function work_overlay_on() {
-
-    // TODO make sure the height of the overlay is at least as tall as the window
     
     originalScrollTop = $(window).scrollTop();
     var width = $('#main-content-container').width();
@@ -99,12 +97,21 @@ function work_overlay_on() {
     $('#work-overlay').on('click', function(e) {
         e.stopPropagation();
     });
+
+    var fix_work_overlay_height = function() {
+        if ( $('#work-overlay-container').height() < $(window).height() ) {
+            $('#work-overlay-container').height($(window).height());
+        }
+    }();
+
+    $(window).on('resize', fix_work_overlay_height);
 }
 
 function work_overlay_off() {
     $('#work-overlay-container').animate({'opacity': '0.0'}, function() {
-        // scroll to where we were on the main page
-        $(window).scrollTop(originalScrollTop);
+
+        // make sure height is auto incase it was set to a px
+        $('#work-overlay-container').height('auto');
 
         // set main content back to static
         $('#main-content').css({'position': 'static'});
@@ -112,11 +119,17 @@ function work_overlay_off() {
 
         // hide overlay completely
         $('#work-overlay-container').css({'display': 'none'});
+
+        // scroll to where we were on the main page
+        $(window).scrollTop(originalScrollTop);
+
     });
 
     // clean up event handlers
     $('#work-overlay-container').off('click');
     $('#work-overlay').off('click');
+
+    $(window).off('resize');
 }
 
 })(jQuery);
