@@ -88,29 +88,54 @@ function work_overlay_on() {
     $(window).scrollTop(0);
     $('#work-overlay-container').animate({'opacity': '1.0'});
 
-
-    // click to close, only if the click is outside work-overlay
+    // click will close, only if it is outside work-overlay
     $('#work-overlay-container').on('click', function() {
         router.setRoute('/');
     });
-    
+
+    // close button. Prevents scrolling to top
+    $('#work-overlay .close').on('click', function(e) {
+        router.setRoute('/');
+        e.preventDefault();
+    });
+
     $('#work-overlay').on('click', function(e) {
         e.stopPropagation();
     });
 
+
+    // make sure the overlay is as tall as the window
     var fix_work_overlay_height = function() {
         if ( $('#work-overlay-container').height() < $(window).height() ) {
             $('#work-overlay-container').height($(window).height());
         }
     }();
-
     $(window).on('resize', fix_work_overlay_height);
+
+    // sticky work nav 
+    var orig_nav_top = -1;
+    var scroll_top = 0;
+
+    var nav_top = $('.work-nav').offset().top;  
+    $(window).on('scroll', function() {
+        scroll_top = $(window).scrollTop();  
+        if ( scroll_top > nav_top ) {
+            orig_nav_top = nav_top;
+            $('.work-nav-anchor').show();
+            $('.work-nav-anchor').height($('.work-nav').innerHeight());
+            $('.work-nav').addClass('fixed');
+        }
+        if ( scroll_top < orig_nav_top ) {
+            $('.work-nav-anchor').hide();
+            $('.work-nav').removeClass('fixed');
+        }
+    });
 }
 
 function work_overlay_off() {
     $('#work-overlay-container').animate({'opacity': '0.0'}, function() {
 
-        // make sure height is auto incase it was set to a px
+        // make sure height is auto incase it was set to a px in resize
         $('#work-overlay-container').height('auto');
 
         // set main content back to static
@@ -128,6 +153,7 @@ function work_overlay_off() {
     // clean up event handlers
     $('#work-overlay-container').off('click');
     $('#work-overlay').off('click');
+    $('#work-overlay .close').off('click');
 
     $(window).off('resize');
 }

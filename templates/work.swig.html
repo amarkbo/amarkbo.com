@@ -9,8 +9,9 @@
 <!-- this class is left out when pulling into the main view -->
 <div class="work-container">
 
-<div class="work-nav-buttons">
-    <a href="#">X Close</a>
+<div class="work-nav-anchor"></div>
+<div class="work-nav">
+    <a class="close" href="#">X Close</a>
     {% if previous.path %}
         <a href="#/{{previous.path}}">&lt; {{previous.title}}</a>
     {% endif %}

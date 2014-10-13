@@ -139,9 +139,27 @@ a:hover {
         padding: 0.5em;
     }
 
-    .work-nav-buttons a {
-        font-size: 0.88em;
-        margin-right: 1em;
+    .work-nav {
+        background-color: $bg_color;
+        padding: 4px;
+
+        a {
+            font-size: 0.88em;
+            margin-right: 1em;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        &.fixed {
+            position: fixed;
+            top: 0;
+        }
+    }
+
+    .work-nav-anchor {
+        display: none;
     }
 
     .work-meta {
