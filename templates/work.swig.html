@@ -6,8 +6,8 @@
     window.location.href = '{{base_url}}#/{{path}}';
 </script>
 
-<!-- this class is left out when pulling into the main view -->
-<div class="work-container">
+<!-- contents of this div is loaded into work-overlay-content -->
+<div class="work-ajax-container">
 
 <div class="work-nav-anchor"></div>
 <div class="work-nav">
@@ -20,8 +20,8 @@
     {% endif %}
 </div>
 
-<h2>{{title}}</h2>
 <div class="work-content">
+    <h2>{{title}}</h2>
     <div class="work-meta">
         <!-- cover image -->
         <img class="pure-img" src="">

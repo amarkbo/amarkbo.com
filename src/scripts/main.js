@@ -51,26 +51,74 @@ $(function() {
 /*** VIEWS ***/
 
 function workView(workSlug) {
-    $.get('works/' + workSlug + '/', function(data) {
-        // A bit hacky, yes. Get the content to display from work-container.
-        var html_data = $.parseHTML(data);
-        var work_container_html = $('<div/>').append(html_data).find('.work-container').html()
-        $('#work-overlay-content').html(work_container_html);
 
-        work_overlay_on();
-    });
+    var load_content = function(callback) {
+        $.get('works/' + workSlug + '/', function(data) {
+
+            // A bit hacky, yes. Get the content to display from work-container.
+            var html_data = $.parseHTML(data);
+            var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
+            $('#work-overlay-content').empty();
+            $('#work-overlay-content').html(work_container_html);
+
+            // close button. Prevents scrolling to top
+            $('#work-overlay-content .close').on('click', function(e) {
+                router.setRoute('/');
+                e.preventDefault();
+            });
+
+            // sticky work nav 
+            var orig_nav_top = -1;
+            var scroll_top = 0;
+
+            var nav_top = $('.work-nav').offset().top;  
+            $(window).on('scroll', function() {
+                scroll_top = $(window).scrollTop();  
+                if ( scroll_top > nav_top ) {
+                    orig_nav_top = nav_top;
+                    $('.work-nav-anchor').show();
+                    $('.work-nav-anchor').height($('.work-nav').innerHeight());
+                    $('.work-nav').addClass('fixed');
+                }
+                if ( scroll_top < orig_nav_top ) {
+                    $('.work-nav-anchor').hide();
+                    $('.work-nav').removeClass('fixed');
+                }
+            });
+
+            if ( callback ) { callback(); }
+        });
+    }
+
+    // Open new window, then load the content
+    if ( !overlayOn ) {
+        work_overlay_on(load_content);
+    }
+
+    // Load content in same window with a fancy fade
+    else {
+        $('.work-content').animate({'opacity': 0.1}, function() {
+            load_content(function() {
+                $('.work-content').fadeIn();
+            });
+        });
+    }
 }
 
 function homeView() {
-    work_overlay_off();
+    if ( overlayOn ) {
+        work_overlay_off();
+    }
 }
 
 
 /*** HELPERS ***/
 
+// scroll location before overlay was opened
 var originalScrollTop = 0;
+var overlayOn = false;
 
-function work_overlay_on() {
+function work_overlay_on(callback) {
     
     originalScrollTop = $(window).scrollTop();
     var width = $('#main-content-container').width();
@@ -93,50 +141,17 @@ function work_overlay_on() {
         router.setRoute('/');
     });
 
-    // close button. Prevents scrolling to top
-    $('#work-overlay .close').on('click', function(e) {
-        router.setRoute('/');
-        e.preventDefault();
-    });
-
     $('#work-overlay').on('click', function(e) {
         e.stopPropagation();
     });
 
+    overlayOn = true;
 
-    // make sure the overlay is as tall as the window
-    var fix_work_overlay_height = function() {
-        if ( $('#work-overlay-container').height() < $(window).height() ) {
-            $('#work-overlay-container').height($(window).height());
-        }
-    }();
-    $(window).on('resize', fix_work_overlay_height);
-
-    // sticky work nav 
-    var orig_nav_top = -1;
-    var scroll_top = 0;
-
-    var nav_top = $('.work-nav').offset().top;  
-    $(window).on('scroll', function() {
-        scroll_top = $(window).scrollTop();  
-        if ( scroll_top > nav_top ) {
-            orig_nav_top = nav_top;
-            $('.work-nav-anchor').show();
-            $('.work-nav-anchor').height($('.work-nav').innerHeight());
-            $('.work-nav').addClass('fixed');
-        }
-        if ( scroll_top < orig_nav_top ) {
-            $('.work-nav-anchor').hide();
-            $('.work-nav').removeClass('fixed');
-        }
-    });
+    if (callback) { callback(); }
 }
 
-function work_overlay_off() {
-    $('#work-overlay-container').animate({'opacity': '0.0'}, function() {
-
-        // make sure height is auto incase it was set to a px in resize
-        $('#work-overlay-container').height('auto');
+function work_overlay_off(callback) {
+    $('#work-overlay-container').fadeOut(function() {
 
         // set main content back to static
         $('#main-content').css({'position': 'static'});
@@ -145,17 +160,19 @@ function work_overlay_off() {
         // hide overlay completely
         $('#work-overlay-container').css({'display': 'none'});
 
+        // clear content
+        $('#work-overlay-content').empty();
+
         // scroll to where we were on the main page
         $(window).scrollTop(originalScrollTop);
-
     });
 
     // clean up event handlers
     $('#work-overlay-container').off('click');
     $('#work-overlay').off('click');
-    $('#work-overlay .close').off('click');
 
-    $(window).off('resize');
+    overlayOn = false;
+    if ( callback ) { callback(); }
 }
 
 })(jQuery);
