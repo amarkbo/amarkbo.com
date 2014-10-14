@@ -142,6 +142,7 @@ a:hover {
     .work-nav {
         background-color: $bg_color;
         padding: 4px;
+        margin-left: -5px;
 
         a {
             font-size: 0.88em;
@@ -155,7 +156,11 @@ a:hover {
         &.fixed {
             position: fixed;
             top: 0;
+            -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
+            -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
+            box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.1);
         }
+
     }
 
     .work-nav-anchor {
