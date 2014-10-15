@@ -2,12 +2,13 @@ $bg_color: #FBF9EA;
 //$bg_color: #F5F2EB;
 
 $accent_color: #E74C3C;
-$base_color: #00387d;
+$base_color: #00387D;
 
 $header_font: 'museo-sans', sans-serif;
-//$header_font: 'Lato', sans-serif;
-
 $body_font: 'ff-tisa-web-pro', serif;
+
+// For when I'm too cheap to pay for typekit
+//$header_font: 'Lato', sans-serif;
 //$body_font: 'Gentium Book Basic', serif;
 
 $break_mobile: 567px;
@@ -16,12 +17,12 @@ $break_tablet: 767px;
 /*** main ***/
 
 body {
+    font-family: $body_font;
     font-size: 18px;
     color: $base_color;
     background-color: $bg_color;
 }
 
-body,
 .pure-g [class *= "pure-u"],
 .pure-g-r [class *= "pure-u"] {
     font-family: $body_font;
@@ -107,6 +108,7 @@ a:hover {
 #work-overlay-container {
     z-index: 20;
     position: absolute;
+    height: 100%;
     width: 100%;
     display: none;
     background-color: rgba(0,0,0,0.5);

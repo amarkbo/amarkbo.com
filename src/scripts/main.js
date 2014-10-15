@@ -25,13 +25,14 @@ $(function() {
         }
     });
 
-    // work links - incercept and route to the anchor
+    // work links - incercept and route to the anchor instead
+    // this keeps the links crawlable
     $('.work-link').click(function(e) {
         e.preventDefault();
         var url = window.location.href;
         var separator = '';
 
-        // both of these are valid homeView routes
+        // both of these are valid homeView urls
         if ( url.slice('-1') == '#' ) {
             separator = '/';
         }
@@ -52,57 +53,67 @@ $(function() {
 
 function workView(workSlug) {
 
-    var load_content = function(callback) {
-        $.get('works/' + workSlug + '/', function(data) {
-
-            // A bit hacky, yes. Get the content to display from work-container.
-            var html_data = $.parseHTML(data);
-            var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
-            $('#work-overlay-content').empty();
-            $('#work-overlay-content').html(work_container_html);
-
-            // close button. Prevents scrolling to top
-            $('#work-overlay-content .close').on('click', function(e) {
-                router.setRoute('/');
-                e.preventDefault();
-            });
-
-            // sticky work nav 
-            var orig_nav_top = -1;
-            var scroll_top = 0;
-
-            var nav_top = $('.work-nav').offset().top;  
-            $(window).on('scroll', function() {
-                scroll_top = $(window).scrollTop();  
-                if ( scroll_top > nav_top ) {
-                    orig_nav_top = nav_top;
-                    $('.work-nav-anchor').show();
-                    $('.work-nav-anchor').height($('.work-nav').innerHeight());
-                    $('.work-nav').addClass('fixed');
-                }
-                if ( scroll_top < orig_nav_top ) {
-                    $('.work-nav-anchor').hide();
-                    $('.work-nav').removeClass('fixed');
-                }
-            });
-
-            if ( callback ) { callback(); }
-        });
-    }
-
     // Open new window, then load the content
     if ( !overlayOn ) {
-        work_overlay_on(load_content);
+        work_overlay_on(function() {
+            $(window).scrollTop(0);
+            load_work_content(workSlug);
+        });
     }
 
     // Load content in same window with a fancy fade
     else {
+        $(window).scrollTop(0);
+        $('#work-overlay-container').height('100%');
+
         $('.work-content').animate({'opacity': 0.1}, function() {
-            load_content(function() {
+            load_work_content(workSlug, function() {
                 $('.work-content').fadeIn();
             });
         });
     }
+
+}
+
+function load_work_content(workSlug, callback) {
+    
+    $.get('works/' + workSlug + '/', function(data) {
+
+        // A bit hacky, yes. Get the content to display from work-container.
+        var html_data = $.parseHTML(data);
+        var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
+        $('#work-overlay-content').empty();
+        $('#work-overlay-content').height('100%');
+        $('#work-overlay-content').html(work_container_html);
+        set_work_overlay_height();
+
+        // close button. Prevents scrolling to top
+        $('#work-overlay-content .close').on('click', function(e) {
+            router.setRoute('/');
+            e.preventDefault();
+        });
+
+        // sticky work nav 
+        var orig_nav_top = -1;
+        var scroll_top = 0;
+
+        var nav_top = $('.work-nav').offset().top;  
+        $(window).on('scroll', function() {
+            scroll_top = $(window).scrollTop();  
+            if ( scroll_top > nav_top ) {
+                orig_nav_top = nav_top;
+                $('.work-nav-anchor').show();
+                $('.work-nav-anchor').height($('.work-nav').innerHeight());
+                $('.work-nav').addClass('fixed');
+            }
+            if ( scroll_top < orig_nav_top ) {
+                $('.work-nav-anchor').hide();
+                $('.work-nav').removeClass('fixed');
+            }
+        });
+
+        if ( callback ) { callback(); }
+    });
 }
 
 function homeView() {
@@ -111,12 +122,17 @@ function homeView() {
     }
 }
 
-
 /*** HELPERS ***/
 
 // scroll location before overlay was opened
 var originalScrollTop = 0;
 var overlayOn = false;
+
+function set_work_overlay_height() {
+    var overlay_height = $('#work-overlay-container').height();
+    var doc_height = $(document).height();
+    $('#work-overlay-container').height(doc_height);
+}
 
 function work_overlay_on(callback) {
     
@@ -133,7 +149,6 @@ function work_overlay_on(callback) {
     $('#work-overlay-container').css({'display': 'inline'});
 
     // scroll to top and fade in
-    $(window).scrollTop(0);
     $('#work-overlay-container').animate({'opacity': '1.0'});
 
     // click will close, only if it is outside work-overlay
