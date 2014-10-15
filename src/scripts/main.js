@@ -129,7 +129,6 @@ var originalScrollTop = 0;
 var overlayOn = false;
 
 function set_work_overlay_height() {
-    var overlay_height = $('#work-overlay-container').height();
     var doc_height = $(document).height();
     $('#work-overlay-container').height(doc_height);
 }
@@ -177,6 +176,7 @@ function work_overlay_off(callback) {
 
         // clear content
         $('#work-overlay-content').empty();
+        $('#work-overlay-container').height('100%');
 
         // scroll to where we were on the main page
         $(window).scrollTop(originalScrollTop);
