@@ -65,8 +65,7 @@ function workView(workSlug) {
     else {
         // scroll to top
         $('.spinner').show();
-        $('body').animate({scrollTop: '0'}, function() {
-            reset_work_overlay_height();
+        $('body,html').animate({scrollTop: '0'}, function() {
 
             $('.work-content').animate({'opacity': 0.1}, function() {
                 load_work_content(workSlug, function() {
@@ -74,6 +73,7 @@ function workView(workSlug) {
                     $('.spinner').hide();
                 });
             });
+
         });
     }
 
@@ -87,9 +87,7 @@ function load_work_content(workSlug, callback) {
         var html_data = $.parseHTML(data);
         var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
         $('#work-overlay-content').empty();
-        reset_work_overlay_height();
         $('#work-overlay-content').html(work_container_html);
-        set_work_overlay_height();
 
         // close button. Prevents scrolling to top
         $('#work-overlay-content .close').on('click', function(e) {
@@ -132,15 +130,6 @@ function homeView() {
 var originalScrollTop = 0;
 var overlayOn = false;
 
-function reset_work_overlay_height() {
-    $('#work-overlay-container').height('100%');
-}
-
-function set_work_overlay_height() {
-    var doc_height = $(document).height();
-    $('#work-overlay-container').height(doc_height);
-}
-
 function work_overlay_on(callback) {
     
     originalScrollTop = $(window).scrollTop();
@@ -156,6 +145,7 @@ function work_overlay_on(callback) {
     $('#work-overlay-container').css({'display': 'inline'});
 
     // scroll to top and fade in
+    $('#shade').fadeIn();
     $('#work-overlay-container').animate({'opacity': '1.0'});
 
     // click will close, only if it is outside work-overlay
@@ -173,6 +163,7 @@ function work_overlay_on(callback) {
 }
 
 function work_overlay_off(callback) {
+    $('#shade').fadeOut();
     $('#work-overlay-container').fadeOut(function() {
 
         // set main content back to static
@@ -184,7 +175,6 @@ function work_overlay_off(callback) {
 
         // clear content
         $('#work-overlay-content').empty();
-        reset_work_overlay_height();
 
         // scroll to where we were on the main page
         $(window).scrollTop(originalScrollTop);

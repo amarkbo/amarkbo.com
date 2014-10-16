@@ -109,14 +109,21 @@ a:hover {
     margin: 16px 32px 16px 32px;
 }
 
+#shade {
+    z-index: 10;
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
 // Take up the whole screen, shade the background
 #work-overlay-container {
     z-index: 20;
     position: absolute;
-    height: 100%;
     width: 100%;
     display: none;
-    background-color: rgba(0,0,0,0.5);
 }
 
 #work-overlay {
@@ -129,6 +136,7 @@ a:hover {
     }
 
     @media screen and (max-width: $break_mobile) {
+        margin: 1em auto 1em auto;
         width: 95%;
     }
 }
