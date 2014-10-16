@@ -1,5 +1,4 @@
 $bg_color: #FBF9EA;
-//$bg_color: #F5F2EB;
 
 $accent_color: #E74C3C;
 $base_color: #00387D;
@@ -55,6 +54,12 @@ a:hover {
     @media screen and (max-width: $break_tablet) {
         display: none;
     }
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/spinner.gif');
 }
 
 #header {
@@ -140,15 +145,7 @@ a:hover {
         background-color: $bg_color;
         padding: 4px;
         margin-left: -5px;
-
-        a {
-            font-size: 0.88em;
-            margin-right: 1em;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
+        overflow: hidden;
 
         &.fixed {
             position: fixed;
@@ -158,6 +155,25 @@ a:hover {
             box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.1);
         }
 
+        a {
+            font-size: 0.88em;
+            margin-right: 18px;
+            float: left;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+
+            &.disabled {
+                color: #f1d3ce;
+            }
+        }
+
+        .spinner {
+            float: left;
+            margin: 3px 0 0 18px;
+            display: none;
+        }
     }
 
     .work-nav-anchor {
@@ -180,9 +196,6 @@ a:hover {
             margin: 0;
             padding: 0;
             list-style: none;
-
-            @media screen and (max-width: $break_mobile) {
-            }
         }
 
         .pure-img {

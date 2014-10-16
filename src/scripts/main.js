@@ -63,12 +63,16 @@ function workView(workSlug) {
 
     // Load content in same window with a fancy fade
     else {
-        $(window).scrollTop(0);
-        $('#work-overlay-container').height('100%');
+        // scroll to top
+        $('.spinner').show();
+        $('body').animate({scrollTop: '0'}, function() {
+            reset_work_overlay_height();
 
-        $('.work-content').animate({'opacity': 0.1}, function() {
-            load_work_content(workSlug, function() {
-                $('.work-content').fadeIn();
+            $('.work-content').animate({'opacity': 0.1}, function() {
+                load_work_content(workSlug, function() {
+                    $('.work-content').fadeIn();
+                    $('.spinner').hide();
+                });
             });
         });
     }
@@ -83,7 +87,7 @@ function load_work_content(workSlug, callback) {
         var html_data = $.parseHTML(data);
         var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
         $('#work-overlay-content').empty();
-        $('#work-overlay-content').height('100%');
+        reset_work_overlay_height();
         $('#work-overlay-content').html(work_container_html);
         set_work_overlay_height();
 
@@ -127,6 +131,10 @@ function homeView() {
 // scroll location before overlay was opened
 var originalScrollTop = 0;
 var overlayOn = false;
+
+function reset_work_overlay_height() {
+    $('#work-overlay-container').height('100%');
+}
 
 function set_work_overlay_height() {
     var doc_height = $(document).height();
@@ -176,7 +184,7 @@ function work_overlay_off(callback) {
 
         // clear content
         $('#work-overlay-content').empty();
-        $('#work-overlay-container').height('100%');
+        reset_work_overlay_height();
 
         // scroll to where we were on the main page
         $(window).scrollTop(originalScrollTop);

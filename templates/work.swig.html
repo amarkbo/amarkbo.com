@@ -12,12 +12,18 @@
 <div class="work-nav-anchor"></div>
 <div class="work-nav">
     <a class="close" href="#"><span class="icon-cancel"></span></a>
-    {% if previous.path %}
-        <a href="#/{{previous.path}}"><span class="icon-left-open"></span></a>
-    {% endif %}
-    {% if next.path %}
-        <a href="#/{{next.path}}"><span class="icon-right-open"></span></a>
-    {% endif %}
+{% if previous.path %}
+    <a href="#/{{previous.path}}"><span class="icon-left-open"></span></a>
+{% else %}
+    <a class="disabled"><span class="icon-left-open"></span></a>
+{% endif %}
+
+{% if next.path %}
+    <a href="#/{{next.path}}"><span class="icon-right-open"></span></a>
+{% else %}
+    <a class="disabled"><span class="icon-right-open"></span></a>
+{% endif %}
+    <div class="spinner"></div>
 </div>
 
 <div class="work-content">
