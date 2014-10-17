@@ -62,6 +62,10 @@ a:hover {
     background-image: url('../images/spinner.gif');
 }
 
+#header, #selected-work, #work-overlay {
+    max-width: 1100px;
+}
+
 #header {
     .column-2 {
         padding-left: 1em;
@@ -89,11 +93,17 @@ a:hover {
         }
 
         .work-link-inside {
+
             // size of the images
             max-width: 400px;
 
             // TODO: not on mobile
             padding: 0 1em 1em 0;
+
+            @media screen and (max-width: $break_mobile) {
+                padding: 0;
+            }
+            
             text-align: center;
 
             .work-title {
@@ -127,7 +137,7 @@ a:hover {
 }
 
 #work-overlay {
-    width: 80%;
+    width: 85%;
     margin: 2em auto 2em auto;
     background-color: $bg_color;
 
@@ -157,6 +167,7 @@ a:hover {
 
         &.fixed {
             position: fixed;
+            z-index: 999;
             top: 0;
             -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
             -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.1);
@@ -182,6 +193,7 @@ a:hover {
             margin: 3px 0 0 18px;
             display: none;
         }
+
     }
 
     .work-nav-anchor {
@@ -206,15 +218,15 @@ a:hover {
             list-style: none;
         }
 
-        .pure-img {
-            @media screen and (max-width: $break_mobile) {
-                display: none;
-            }
-        }
     }
 
     .intro {
+        margin: 0.5em 0;
         font-size: 1.5em;
         font-style: italic;
+    }
+
+    .videoembed {
+        max-width: 600px;
     }
 }

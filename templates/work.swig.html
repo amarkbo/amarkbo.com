@@ -28,16 +28,18 @@
 
 <div class="work-content">
     <h2>{{title}}</h2>
-    <div class="work-meta">
-        <!-- cover image -->
-        <img class="pure-img" src="">
-        <ul>
-            <li><strong>My role: </strong>{{role}}</li>
-            <li><strong>Team size: </strong>{{team}}</li>
-            <li><strong>Year: </strong>{{date|date('Y')}}</li>
-        </ul>
+    <div>
+        <div class="work-meta">
+            <!-- cover image -->
+            <img class="pure-img" src="{{base_url}}{{path}}/cover.jpg">
+            <ul>
+                <li><strong>My role: </strong>{{role}}</li>
+                <li><strong>Team size: </strong>{{team}}</li>
+                <li><strong>Year: </strong>{{date|date('Y')}}</li>
+            </ul>
+        </div>
+        {{contents|safe}}
     </div>
-    {{contents|safe}}
 </div>
 
 </div>

@@ -114,6 +114,9 @@ function load_work_content(workSlug, callback) {
             }
         });
 
+        // videos
+        $('#work-overlay-content .videoembed').fitVids();
+
         if ( callback ) { callback(); }
     });
 }
