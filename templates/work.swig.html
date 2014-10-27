@@ -26,9 +26,10 @@
     <div class="spinner"></div>
 </div>
 
-<div class="work-content">
-    <h2>{{title}}</h2>
-    <div>
+<div class="work-content-container">
+    <h2 class="work-title">{{title}}</h2>
+    <h3 class="work-job">at {{job|safe}}</h3>
+    <div class="work-content">
         <div class="work-meta">
             <!-- cover image -->
             <img class="pure-img" src="{{base_url}}{{path}}/cover.jpg">

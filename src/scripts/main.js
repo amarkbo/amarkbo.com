@@ -1,4 +1,13 @@
-(function($) {
+;(function($) {
+
+// scroll location before overlay was opened
+var originalScrollTop = 0;
+
+// if the work overlay is on
+var workOverlayOn = false;
+
+// if the image gallery popup is on
+var galleryPopupOn = false;
 
 var routes = {
     '/works/:workSlug/': workView,
@@ -20,8 +29,12 @@ $(function() {
 
     // keyboard shortcuts
     $(document).on('keydown', function(e) {
-        if (e.keyCode == 27) {
-            router.setRoute('/');
+
+        // hackish. If the magnific popup isn't open, handle the escape key. Otherwise it closes the popup
+        if (!galleryPopupOn) {
+            if (e.keyCode == 27) {
+                router.setRoute('/');
+            }
         }
     });
 
@@ -54,7 +67,7 @@ $(function() {
 function workView(workSlug) {
 
     // Open new window, then load the content
-    if ( !overlayOn ) {
+    if ( !workOverlayOn ) {
         work_overlay_on(function() {
             $(window).scrollTop(0);
             load_work_content(workSlug);
@@ -67,9 +80,9 @@ function workView(workSlug) {
         $('.spinner').show();
         $('body,html').animate({scrollTop: '0'}, function() {
 
-            $('.work-content').animate({'opacity': 0.1}, function() {
+            $('.work-content-container').animate({'opacity': 0.1}, function() {
                 load_work_content(workSlug, function() {
-                    $('.work-content').fadeIn();
+                    $('.work-content-container').fadeIn();
                     $('.spinner').hide();
                 });
             });
@@ -117,21 +130,29 @@ function load_work_content(workSlug, callback) {
         // videos
         $('#work-overlay-content .videoembed').fitVids();
 
+        $('.gallery').magnificPopup({ 
+            delegate: '.gallery-image',
+            type: 'image',
+            gallery: {
+                enabled: true
+            },
+            callbacks: {
+                open: function() { galleryPopupOn = true; },
+                close: function() { galleryPopupOn = false; }
+            }
+        });
+
         if ( callback ) { callback(); }
     });
 }
 
 function homeView() {
-    if ( overlayOn ) {
+    if ( workOverlayOn ) {
         work_overlay_off();
     }
 }
 
 /*** HELPERS ***/
-
-// scroll location before overlay was opened
-var originalScrollTop = 0;
-var overlayOn = false;
 
 function work_overlay_on(callback) {
     
@@ -141,6 +162,8 @@ function work_overlay_on(callback) {
     // set main content to fixed so that overlay scrolls instead
     $('#main-content').css({'position': 'fixed'});
     $('#main-content').css({'top': -originalScrollTop});
+
+    // width minus margin, which is changed when the position is set to fixed
     $('#main-content').width(width-64);
 
     // get ready for the fade
@@ -160,8 +183,7 @@ function work_overlay_on(callback) {
         e.stopPropagation();
     });
 
-    overlayOn = true;
-
+    workOverlayOn = true;
     if (callback) { callback(); }
 }
 
@@ -187,7 +209,7 @@ function work_overlay_off(callback) {
     $('#work-overlay-container').off('click');
     $('#work-overlay').off('click');
 
-    overlayOn = false;
+    workOverlayOn = false;
     if ( callback ) { callback(); }
 }
 
