@@ -34,7 +34,9 @@
             <!-- cover image -->
             <img class="pure-img" src="{{base_url}}{{path}}/cover.jpg">
             <ul>
+            {% if role %}
                 <li><strong>My role: </strong>{{role}}</li>
+            {% endif %}
                 <li><strong>Year: </strong>{{date|date('Y')}}</li>
             {% if team %}
                 <li><strong>Core team: </strong>{{team}}</li>
