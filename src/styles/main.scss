@@ -243,10 +243,23 @@ a:hover { text-decoration: underline; }
 
     }
 
-    video.videoembed {
-        display: block;
-        width: 100%;
-        max-width: 600px;
+    // scribd embed on desktop
+    .scribdembed iframe {
+        width: 90%;
+        max-width: 720px;
+        height: 600px;
+        
+        @media screen and (max-width: $break_tablet) {
+            display: none;
+        }
+    }
+
+    // defaults to external link on tablet / mobile
+    .scribdlink {
+        display: none;
+        @media screen and (max-width: $break_tablet) {
+            display: block;
+        }
     }
 
     .gallery-item {
