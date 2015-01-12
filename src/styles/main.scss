@@ -40,12 +40,14 @@ h2 {
 }
 
 h3 {
-    margin: 1.25em 0 0.25em 0;
+    margin: 1.25em 0 0 0;
 }
 
 a { color: $accent_color; text-decoration: none; }
 
 a:hover { text-decoration: underline; }
+
+p { margin-top: 0.5em; }
 
 .spacer-col {
     @media screen and (max-width: $break_tablet) {
@@ -67,8 +69,13 @@ a:hover { text-decoration: underline; }
 }
 
 #header {
+
+    .intro-text {
+        margin-top: 0;
+    }
+
     .column-2 {
-        padding-left: 1em;
+        padding-left: 2em;
 
         @media screen and (max-width: $break_tablet) {
             padding-left: 0;
@@ -78,7 +85,8 @@ a:hover { text-decoration: underline; }
             margin-top: 0;
 
             @media screen and (max-width: $break_tablet) {
-                margin-top: 1.25em;
+                // 0.25 + 1.25 (the p margin-bottom above) = 1.25 (the normal margin between p and h3)
+                margin-top: 0.25em;
             }
         }
     }

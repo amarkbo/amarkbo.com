@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Amar Boghani | amarkbo.com</title>
+    <title>Amar Boghani | {% block title %}amarkbo.com{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1">
     <script type="text/javascript" src="//use.typekit.net/flh8bft.js"></script>
@@ -18,6 +18,12 @@
     <link rel="stylesheet" href="{{base_url}}vendor/magnific-popup/dist/magnific-popup.css"></script>
     <link rel="stylesheet" href="{{base_url}}styles/amarkbo_icon.css">
     <link rel="stylesheet" href="{{base_url}}styles/main.css">
+    <meta property="og:title" content="Amar Boghani | amarkbo.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://amarkbo.com" />
+    <meta property="og:image" content="http://amarkbo.com/works/marriott-six-degrees/cover.jpg" />
+    <meta property="og:description" content="I'm Amar Boghani. I create digital products &amp; services as a researcher, developer, and user experience designer." />
+    <meta name="description" content="I'm Amar Boghani. I create digital products &amp; services as a researcher, developer, and user experience designer." />
 </head>
 <body>
 {% block body %}{% endblock %}
