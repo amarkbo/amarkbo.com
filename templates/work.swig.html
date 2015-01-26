@@ -39,7 +39,7 @@
             {% if role %}
                 <li><strong>My role: </strong>{{role}}</li>
             {% endif %}
-                <li><strong>Year: </strong>{{date|date('Y')}}</li>
+                <li><strong>Date: </strong>{{date|safe}}</li>
             {% if team %}
                 <li><strong>Core team: </strong>{{team}}</li>
             {% endif %}
