@@ -93,14 +93,17 @@ function workView(workSlug) {
 }
 
 function load_work_content(workSlug, callback) {
+    var page = '/works/' + workSlug;
     
-    $.get('works/' + workSlug + '/' + '?' + build_timestamp, function(data) {
+    $.get(page + '/?_=' + build_timestamp, function(data) {
 
         // A bit hacky, yes. Get the content to display from work-container.
         var html_data = $.parseHTML(data);
         var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
         $('#work-overlay-content').empty();
         $('#work-overlay-content').html(work_container_html);
+
+        var title = $('#work-overlay-content .work-title').html();
 
         // close button. Prevents scrolling to top
         $('#work-overlay-content .close').on('click', function(e) {
@@ -130,7 +133,7 @@ function load_work_content(workSlug, callback) {
         // videos
         $('#work-overlay-content .videoembed').fitVids();
 
-        $('.gallery').magnificPopup({ 
+        $('#work-overlay-content .gallery').magnificPopup({ 
             delegate: '.gallery-image',
             type: 'image',
             gallery: {
@@ -141,6 +144,15 @@ function load_work_content(workSlug, callback) {
                 close: function() { galleryPopupOn = false; }
             }
         });
+
+        // analytics
+        if ( ga ) { 
+            ga('send', {
+                'hitType': 'pageview',
+                'page': page,
+                'title': title
+            });
+        }
 
         if ( callback ) { callback(); }
     });
