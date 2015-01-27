@@ -76,17 +76,17 @@ function workView(workSlug) {
 
     // Load content in same window with a fancy fade
     else {
-        // scroll to top
         $('.spinner').show();
-        $('body,html').animate({scrollTop: '0'}, function() {
 
+        // scroll to top. Need to animate on body and html cause of browser compat issues
+        // and then use a promise to not fire callback twice.
+        $('body, html').animate({scrollTop: '0'}).promise().done(function() {
             $('.work-content-container').animate({'opacity': 0.1}, function() {
                 load_work_content(workSlug, function() {
                     $('.work-content-container').fadeIn();
                     $('.spinner').hide();
                 });
             });
-
         });
     }
 

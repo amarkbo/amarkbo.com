@@ -2,7 +2,7 @@
     "name": "amarkbo.com",
     "private": true,
     "dependencies": {
-        "director": "~1.1.9",
+        "director": "~1.2.5",
         "pure": "~0.5.0",
         "modernizr": "~2.8.3",
         "jquery": "~1.11.1",
