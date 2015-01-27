@@ -14,6 +14,8 @@ var settings = require('./settings_local.json');
 
 var metalsmith_src = Metalsmith(__dirname)
 
+settings.build_timestamp = new Date().toISOString();
+
 metalsmith_src.use(metaobject(settings))
 
     .use(collections({

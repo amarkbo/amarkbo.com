@@ -94,7 +94,7 @@ function workView(workSlug) {
 
 function load_work_content(workSlug, callback) {
     
-    $.get('works/' + workSlug + '/', function(data) {
+    $.get('works/' + workSlug + '/' + '?' + build_timestamp, function(data) {
 
         // A bit hacky, yes. Get the content to display from work-container.
         var html_data = $.parseHTML(data);
