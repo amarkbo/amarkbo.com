@@ -48,10 +48,16 @@ p { margin-top: 0.5em; }
     }
 }
 
-.spinner {
-    width: 20px;
-    height: 20px;
-    background-image: url('../images/spinner.gif');
+@mixin spinner($width) {
+    svg {
+        width: $width;
+        height: $width;
+    }
+    svg path, svg rect {
+        fill: $accent_color;
+    }
+    width: $width;
+    height: $width;
 }
 
 // magnific popup caption
@@ -184,8 +190,9 @@ p { margin-top: 0.5em; }
         }
 
         .spinner {
+            @include spinner(22px);
             float: left;
-            margin: 3px 0 0 18px;
+            margin: 2px 0 0 15px;
             display: none;
         }
 
