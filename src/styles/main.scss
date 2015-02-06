@@ -1,5 +1,4 @@
-$bg_color: #FBF9EA;
-$bg_color: #FBFAF2;
+$bg_color: #F6FAFA;
 
 $accent_color: #E74C3C;
 $base_color: #00387D;
@@ -34,13 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-    display:inline-block;
-    border-bottom: 2px solid $base_color;
-    width: auto;
-}
-
-h3 {
-    margin: 1.25em 0 0 0;
+    font-size: 1.25em;
 }
 
 a { color: $accent_color; text-decoration: none; }
@@ -64,30 +57,25 @@ p { margin-top: 0.5em; }
 // magnific popup caption
 .mfp-title { text-align: center; }
 
-#header, #selected-work, #work-overlay {
-    max-width: 1100px;
+#main-content-inner {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #header {
+    padding: 3em 0 1.5em 0;
+    font-size: 1.111em;
 
-    .intro-text {
-        margin-top: 0;
+    @media screen and (max-width: $break_mobile) {
+        padding: 1em 0 0.5em 0;
     }
 
     .column-2 {
         padding-left: 2em;
 
-        @media screen and (max-width: $break_tablet) {
+        @media screen and (max-width: $break_mobile) {
             padding-left: 0;
-        }
-
-        h3 {
-            margin-top: 0;
-
-            @media screen and (max-width: $break_tablet) {
-                // 0.25 + 1.25 (the p margin-bottom above) = 1.25 (the normal margin between p and h3)
-                margin-top: 0.25em;
-            }
         }
     }
 }
@@ -103,7 +91,7 @@ p { margin-top: 0.5em; }
             // size of the images
             max-width: 400px;
 
-            padding: 0 1em 1em 0;
+            padding: 0 1em 2em 0;
 
             @media screen and (max-width: $break_mobile) {
                 padding: 0 0 1.5em 0;
@@ -120,16 +108,11 @@ p { margin-top: 0.5em; }
 
 #footer {
     margin-top: 2em;
-
-    font-size: 0.77em;
-
-    .separator {
-        width: 100px;
-        border-top: 2px solid $base_color;
-    }
+    font-size: 0.889em;
 }
 
 
+// when the overlay opens, for some reason, this is the spacing that is added
 #main-content {
     margin: 16px 32px 16px 32px;
 }
@@ -153,6 +136,7 @@ p { margin-top: 0.5em; }
 
 #work-overlay {
     width: 85%;
+    max-width: 1200px;
     margin: 2em auto 2em auto;
     background-color: $bg_color;
 
@@ -212,35 +196,45 @@ p { margin-top: 0.5em; }
 
 .work-content-container {
 
-    h2.work-title { margin-bottom: 0.25em; }
+    h2.work-title { margin-bottom: 0.25em; text-align: center; }
 
-    h3.work-job { 
-        font-size: 0.88em; 
-        margin: 0 0 1.5em 0; 
+    h3 {
+        margin: 1.25em 0 0 0;
 
-        @media screen and (max-width: $break_mobile) {
-            margin-bottom: 0.5em;
+        &.work-job {
+            font-size: 0.88em; 
+            text-align: center;
+            margin: 0; 
+
+            @media screen and (max-width: $break_mobile) {
+                margin-bottom: 0.5em;
+            }
         }
     }
 
+    .header-img {
+        width: 120px;
+        margin: 32px auto 32px auto;
+    }
+
     .work-meta {
+        max-width: 320px;
         border-top: 1px solid $base_color;
+        padding: 0.5em;
         border-bottom: 1px solid $base_color;
-        padding: 1em 0 1em 0;
-        margin: 0 0 1em 2em;
+        margin: 0 0 1em 3em;
         float: right;
         width: 33%;
-        font-size: 0.78em;
+        font-size: 0.778em;
 
         @media screen and (max-width: $break_mobile) {
             float: none;
             width: auto;
-            margin: 0;
-            border-top: 0;
+            margin: 0 auto 2em auto;
         }
 
         ul {
-            margin: 1em 0 0 0;
+            margin: 0;
             padding: 0;
             list-style: none;
         }
@@ -248,9 +242,10 @@ p { margin-top: 0.5em; }
     }
 
     .intro {
-        margin: 0.5em 0;
         font-size: 1.5em;
         font-style: italic;
+        text-align: center;
+        margin-bottom: 32px;
     }
 
     // external embeds, use fitvids

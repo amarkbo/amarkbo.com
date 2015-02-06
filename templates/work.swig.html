@@ -29,23 +29,26 @@
 </div> <!-- /work-nav -->
 
 <div class="work-content-container">
-    <h2 class="work-title">{{title}}</h2>
-    <h3 class="work-job">at {{job|safe}}</h3>
     <div class="work-content">
-        <div class="work-meta">
-            <!-- cover image -->
-            <img class="pure-img" src="{{base_url}}{{path}}/cover.jpg">
-            <ul>
-            {% if role %}
-                <li><strong>My role: </strong>{{role}}</li>
-            {% endif %}
-                <li><strong>Date: </strong>{{date|safe}}</li>
-            {% if team %}
-                <li><strong>Core team: </strong>{{team}}</li>
-            {% endif %}
-            </ul>
+        <h2 class="work-title">{{title}}</h2>
+        <h3 class="work-job">at {{job|safe}}</h3>
+        <img class="header-img pure-img" src="{{base_url}}{{path}}/cover.jpg">
+        <div class="intro">{{intro}}</div>
+        <div>
+            <div class="work-meta">
+                <!-- cover image -->
+                <ul>
+                {% if role %}
+                    <li><strong>My role: </strong>{{role}}</li>
+                {% endif %}
+                    <li><strong>Date: </strong>{{date|safe}}</li>
+                {% if team %}
+                    <li><strong>Core team: </strong>{{team}}</li>
+                {% endif %}
+                </ul>
+            </div>
+            {{contents|safe}}
         </div>
-        {{contents|safe}}
     </div>
 </div> <!-- /work-content-container -->
 
