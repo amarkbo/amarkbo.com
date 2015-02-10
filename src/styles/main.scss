@@ -7,11 +7,12 @@ $header_font: 'museo-sans', sans-serif;
 $body_font: 'ff-tisa-web-pro', serif;
 
 // For when I'm too cheap to pay for typekit
-//$header_font: 'Lato', sans-serif;
-//$body_font: 'Gentium Book Basic', serif;
+// $header_font: 'Lato', sans-serif;
+// $body_font: 'Gentium Book Basic', serif;
 
 $break_mobile: 567px;
 $break_tablet: 767px;
+$break_smallscreen: 1023px;
 
 /*** main ***/
 
@@ -33,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-    font-size: 1.25em;
+    font-size: 1.5em;
 }
 
 a { color: $accent_color; text-decoration: none; }
@@ -78,9 +79,13 @@ p { margin-top: 0.5em; }
     }
 
     .column-2 {
-        padding-left: 2em;
+        padding-left: 4em;
 
-        @media screen and (max-width: $break_mobile) {
+        @media screen and (max-width: $break_smallscreen) {
+            padding-left: 2em;
+        }
+
+        @media screen and (max-width: $break_tablet) {
             padding-left: 0;
         }
     }
@@ -97,7 +102,7 @@ p { margin-top: 0.5em; }
             // size of the images
             max-width: 400px;
 
-            padding: 0 1em 2em 0;
+            padding: 0 4em 2em 0;
 
             @media screen and (max-width: $break_mobile) {
                 padding: 0 0 1.5em 0;
@@ -114,7 +119,7 @@ p { margin-top: 0.5em; }
 
 #footer {
     margin-top: 2em;
-    font-size: 0.889em;
+    font-size: 0.778em;
 }
 
 
@@ -193,7 +198,6 @@ p { margin-top: 0.5em; }
             @include spinner(22px);
             float: left;
             margin: 2px 0 0 15px;
-            display: none;
         }
 
     }
@@ -252,7 +256,12 @@ p { margin-top: 0.5em; }
         font-size: 1.5em;
         font-style: italic;
         text-align: center;
-        margin-bottom: 32px;
+        margin: 0 auto 32px auto;
+        width: 75%;
+
+        @media screen and (max-width: $break_mobile) {
+            width: 100%;
+        }
     }
 
     // external embeds, use fitvids
@@ -280,12 +289,30 @@ p { margin-top: 0.5em; }
         }
     }
 
+}
+
+.gallery {
+    margin: 3em 0 3em 0;
+
+    @media screen and (max-width: $break_tablet) {
+        margin: 0;
+    }
+
     .gallery-item {
         padding-right: 1em;
 
         @media screen and (max-width: $break_tablet) {
-            padding: 0 0 1em 0;
+            margin: 0 0 3em 0;
         }
+
+        // center images and videos
+        img, .videoembed { margin: 0 auto 0 auto; }
     }
 
+    .caption {
+        margin-top: 0.5em;
+        text-align: center;
+        font-style: italic;
+        font-size: 0.889em;
+    }
 }

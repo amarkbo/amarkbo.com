@@ -70,7 +70,9 @@ function workView(workSlug) {
     if ( !workOverlayOn ) {
         work_overlay_on(function() {
             $(window).scrollTop(0);
-            load_work_content(workSlug);
+            load_work_content(workSlug, function() {
+                $('.spinner').hide();
+            });
         });
     }
 
@@ -81,9 +83,8 @@ function workView(workSlug) {
         // scroll to top. Need to animate on body and html cause of browser compat issues
         // and then use a promise to not fire callback twice.
         $('body, html').animate({scrollTop: '0'}).promise().done(function() {
-            $('.work-content-container').animate({'opacity': 0.1}, function() {
+            $('.work-content-container').animate({'opacity': 0.0}, function() {
                 load_work_content(workSlug, function() {
-                    $('.work-content-container').fadeIn();
                     $('.spinner').hide();
                 });
             });
@@ -102,6 +103,8 @@ function load_work_content(workSlug, callback) {
         var work_container_html = $('<div/>').append(html_data).find('.work-ajax-container').html()
         $('#work-overlay-content').empty();
         $('#work-overlay-content').html(work_container_html);
+        $('.work-content-container').css({'opacity': 0.0});
+        $('.work-content-container').animate({'opacity': 1.0});
 
         var title = $('#work-overlay-content .work-title').html();
 
@@ -179,7 +182,7 @@ function work_overlay_on(callback) {
     $('#main-content').width(width-64);
 
     // get ready for the fade
-    $('#work-overlay-container').css({'opacity': '0.1'});
+    $('#work-overlay-container').css({'opacity': '0.0'});
     $('#work-overlay-container').css({'display': 'inline'});
 
     // scroll to top and fade in
